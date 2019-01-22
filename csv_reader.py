@@ -1,5 +1,5 @@
 import csv
-from main import add_state, add_district, add_party, add_first_vote, add_second_vote
+from connector import add_state, add_district, add_party, add_first_vote, add_second_vote
 
 #read csv lines as list of lists
 print('Reading csv ...')

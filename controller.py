@@ -1,6 +1,6 @@
 from flask import Flask, request
 from flask_cors import CORS
-from main import State, District, First, Second, Party, session
+from connector import State, District, First, Second, Party, session
 import json
 from flask import jsonify
 
