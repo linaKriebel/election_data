@@ -44,11 +44,46 @@ class Second(Base):
   district_id = Column(Integer , ForeignKey("electoral_districts.id")) 
   party_id = Column(Integer , ForeignKey("parties.id"))
 
+#Base.metadata.create_all(engine)
 
+#### INSERT functions
+
+def add_state(name):
+  new_state = State(name = name)
+  session.add(new_state)
+  session.commit()
+
+def add_district(name, state_name):
+  state = session.query(State).filter_by(name = state_name).first()
+  state_id = state.id
+
+  new_district = District(name = name, state_id = state_id)
+  session.add(new_district)
+  session.commit()
 
 def add_party(name):
   new_party = Party(name = name) 
   session.add(new_party)
   session.commit()
 
-#Base.metadata.create_all(engine)
+def add_first_vote(district_name, party_name, votes):
+  district = session.query(District).filter_by(name = district_name).first()
+  district_id = district.id
+
+  party = session.query(Party).filter_by(name = party_name).first()
+  party_id = party.id
+
+  new_first_vote = First(votes = votes, district_id = district_id, party_id = party_id)
+  session.add(new_first_vote)
+  session.commit()
+
+def add_second_vote(district_name, party_name, votes):
+  district = session.query(District).filter_by(name = district_name).first()
+  district_id = district.id
+
+  party = session.query(Party).filter_by(name = party_name).first()
+  party_id = party.id
+
+  new_second_vote = Second(votes = votes, district_id = district_id, party_id = party_id)
+  session.add(new_second_vote)
+  session.commit()

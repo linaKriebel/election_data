@@ -38,12 +38,12 @@ def districts():
   return jsonify(districts_json)
 
 @app.route('/getVotesOf')
-def first_votes():
+def votes():
   id = request.args.get('id')
 
   parties = session.query(Party).all()
 
-  v = []
+  votes_list = []
 
   for party in parties:
     first_vote = session.query(First).filter_by(district_id = id).filter_by(party_id = party.id).first()
@@ -55,15 +55,10 @@ def first_votes():
       'second_vote':second_vote.votes
     }
 
-    v.append(vote)
+    votes_list.append(vote)
 
-  votes_json = json.dumps(v)
+  votes_json = json.dumps(votes_list)
 
   return jsonify(votes_json)
-
-      
-
-
-
 
 app.run(debug=True)
